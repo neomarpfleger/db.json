@@ -1,9 +1,102 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
+  "projects": [
+    {
+      "id": "0d1c",
+      "name": "Neomar Pfleger",
+      "budget": "1000000",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 0,
+      "services": []
+    },
+    {
+      "id": "63c6",
+      "name": "CRF250F",
+      "budget": "100000",
+      "category": {
+        "id": "1",
+        "name": "infra"
+      },
+      "cost": 150,
+      "services": [
+        {
+          "name": "Proteção",
+          "cost": "150",
+          "description": "Comprar um protetor de balança preto",
+          "id": "4e20f372-d64f-4ee7-ac7d-85c1968de404"
+        }
+      ]
+    },
+    {
+      "id": "286d",
+      "name": "React",
+      "budget": "10000",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 0,
+      "services": []
+    },
+    {
+      "id": "251d",
+      "name": "BUDWAISER",
+      "budget": "2000",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
+      "cost": 0,
+      "services": []
+    },
+    {
+      "id": "3708",
+      "name": "Barber digital",
+      "budget": "700000",
+      "category": {
+        "id": "3",
+        "name": "Desing"
+      },
+      "cost": 100,
+      "services": [
+        {
+          "name": "Bateria",
+          "cost": "100",
+          "description": "troca da bateria",
+          "id": "365cf6c4-aa67-4ccd-a3bc-2df2a237ad7f"
+        }
+      ]
+    },
+    {
+      "id": "1783",
+      "name": "HEINEKEN",
+      "budget": "5000",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
+      "cost": 0,
+      "services": []
+    }
   ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
+  "categorias": [
+    {
+      "id": "1",
+      "name": "infra"
+    },
+    {
+      "id": "2",
+      "name": "Desenvolvimento"
+    },
+    {
+      "id": "3",
+      "name": "Desing"
+    },
+    {
+      "id": "4",
+      "name": "Planejamento"
+    }
+  ]
 }
