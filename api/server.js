@@ -1,31 +1,52 @@
-// See https://github.com/typicode/json-server#module
-const jsonServer = require('json-server')
+// Importa as dependências necessárias
+const jsonServer = require('json-server');
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config();  // Carrega variáveis de ambiente do arquivo .env
 
-const server = jsonServer.create()
+// Cria o servidor JSON Server e Express
+const server = jsonServer.create();
 
-// Uncomment to allow write operations
-// const fs = require('fs')
-// const path = require('path')
-// const filePath = path.join('db.json')
-// const data = fs.readFileSync(filePath, "utf-8");
-// const db = JSON.parse(data);
-// const router = jsonServer.router(db)
+// Define a porta a partir das variáveis de ambiente ou padrão para 3000
+const PORT = process.env.PORT || 3000;
+const DB_FILE = process.env.DB_FILE || 'db.json';  // Usa db.json como padrão, mas permite configuração via .env
 
-// Comment out to allow write operations
-const router = jsonServer.router('db.json')
+// Função para configurar o roteador com base no db.json ou uma URL remota
+let router;
+if (fs.existsSync(DB_FILE)) {
+    // Usa o arquivo local `db.json` se ele existir
+    router = jsonServer.router(DB_FILE);
+} else {
+    console.warn(`Arquivo ${DB_FILE} não encontrado. Por favor, verifique o caminho.`);
+    // Adiciona um roteador vazio ou uma mensagem de erro
+    router = jsonServer.router({ message: 'Database não encontrado' });
+}
 
-const middlewares = jsonServer.defaults()
+// Middlewares padrão do JSON Server
+const middlewares = jsonServer.defaults();
+server.use(middlewares);
 
-server.use(middlewares)
-// Add this before server.use(router)
+// Reescritas de rotas para flexibilidade na API
 server.use(jsonServer.rewriter({
     '/api/*': '/$1',
     '/blog/:resource/:id/show': '/:resource/:id'
-}))
-server.use(router)
-server.listen(3000, () => {
-    console.log('JSON Server is running')
-})
+}));
 
-// Export the Server API
-module.exports = server
+// Middleware opcional para logs detalhados de requisições (útil em desenvolvimento)
+if (process.env.NODE_ENV !== 'production') {
+    server.use((req, res, next) => {
+        console.log(`[LOG] ${req.method} request to ${req.url}`);
+        next();
+    });
+}
+
+// Define o roteador configurado
+server.use(router);
+
+// Inicializa o servidor e exibe mensagem de sucesso na inicialização
+server.listen(PORT, () => {
+    console.log(`JSON Server está rodando na porta ${PORT}`);
+});
+
+module.exports = server;
